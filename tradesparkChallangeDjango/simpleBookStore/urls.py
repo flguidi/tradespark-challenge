@@ -11,5 +11,3 @@ router.register(r'books', BookViewSet)
 urlpatterns = [
     path('', include(router.urls)),
 ]
-
-
