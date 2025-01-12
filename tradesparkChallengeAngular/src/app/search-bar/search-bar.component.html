@@ -1,0 +1,10 @@
+<div class="search-container">
+    <input
+        type="text"
+        class="search-input"
+        [(ngModel)]="searchText"
+        (ngModelChange)="onInputChange()"
+        placeholder="Search by title, author or category..."
+    />
+    <img class="search-icon" src="../../assets/search_bar_icon.png" alt="Search Bar Icon">
+</div>

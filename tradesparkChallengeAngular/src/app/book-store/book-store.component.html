@@ -1,5 +1,12 @@
 <div class="background-image">
     <h1> Book Store </h1>
+    
+    <!-- Barra de búsqueda -->
+    <div class="search-bar-container">
+        <app-search-bar (search)="onSearch($event)"></app-search-bar>
+    </div>
+    
+    <!-- Lista de libros -->
     <div class="book-list">
         <div>
             <table>
@@ -11,7 +18,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let book of books">
+                    <tr *ngFor="let book of filteredBooks">
                         <td>{{ book["title"] }}</td>
                         <td>{{ book["author"]["name"] }}</td>
                         <td>{{ categoriesToString(book['categories']) }}</td>

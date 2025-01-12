@@ -16,6 +16,12 @@ h1 {
     margin-bottom: 1em;
 }
 
+.search-bar-container {
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: center;
+}
+
 .book-list {
     background: rgba(255, 255, 255, 0.8); /* Semi-transparent white for legibility */
     border-radius: 8px;
