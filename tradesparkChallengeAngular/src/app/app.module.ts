@@ -9,12 +9,15 @@ import { BookStoreComponent } from './book-store/book-store.component';
 import { MainPageComponent } from './main-page/main-page.component';
 import { SearchBarComponent } from './search-bar/search-bar.component';
 
+import { HighlightPipe } from './pipes/highlight.pipe';
+
 @NgModule({
   declarations: [
     AppComponent,
     BookStoreComponent,
     MainPageComponent,
-    SearchBarComponent
+    SearchBarComponent,
+    HighlightPipe
   ],
   imports: [
     BrowserModule,

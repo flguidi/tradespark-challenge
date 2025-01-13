@@ -19,16 +19,15 @@
                 </thead>
                 <tbody>
                     <tr *ngFor="let book of filteredBooks">
-                        <td>{{ book["title"] }}</td>
-                        <td>{{ book["author"]["name"] }}</td>
+                        <td [innerHTML]="book['title'] | highlight: searchText"></td>
+                        <td [innerHTML]="book['author']['name'] | highlight: searchText"></td>
                         <td>
                             <ul class="category-list">
                                 <li *ngFor="let category of book.categories">
-                                    {{ category.name }}
+                                    <span [innerHTML]="category.name | highlight: searchText"></span>
                                     <button 
                                         (click)="removeCategory(book.id, category.id)" 
-                                        class="remove-category-button"
-                                    >
+                                        class="remove-category-button">
                                         Remove
                                     </button>
                                 </li>

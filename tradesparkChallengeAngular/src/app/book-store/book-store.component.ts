@@ -10,6 +10,7 @@ export class BookStoreComponent implements OnInit {
 
   books: any[] = []; // Almacena todos libros de la base de datos
   filteredBooks: any[] = []; // Libros filtrados que se renderizarán
+  searchText: string = ''; // Texto de la búsqueda utilizado para resaltar coincidencias
 
   constructor(private bookStoreService: BookStoreService) { }
 
@@ -58,12 +59,12 @@ export class BookStoreComponent implements OnInit {
    * @param searchText El texto ingresado en la barra de búsqueda que se usará para filtrar los libros.
    */
   onSearch(searchText: string): void {
-    const lowerCaseSearch = searchText.toLowerCase(); // El filtro no es case sensitive
+    this.searchText = searchText.toLowerCase(); // El filtro no es case sensitive
     this.filteredBooks = this.books.filter(
       (book) =>
-        book.title.toLowerCase().includes(lowerCaseSearch) || // Título
-        book.author.name.toLowerCase().includes(lowerCaseSearch) || // Autor
-        this.categoriesToString(book.categories).toLowerCase().includes(lowerCaseSearch) // Categorías
+        book.title.toLowerCase().includes(this.searchText) || // Título
+        book.author.name.toLowerCase().includes(this.searchText) || // Autor
+        this.categoriesToString(book.categories).toLowerCase().includes(this.searchText) // Categorías
     );
   }
 
