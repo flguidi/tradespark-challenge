@@ -21,7 +21,19 @@
                     <tr *ngFor="let book of filteredBooks">
                         <td>{{ book["title"] }}</td>
                         <td>{{ book["author"]["name"] }}</td>
-                        <td>{{ categoriesToString(book['categories']) }}</td>
+                        <td>
+                            <ul class="category-list">
+                                <li *ngFor="let category of book.categories">
+                                    {{ category.name }}
+                                    <button 
+                                        (click)="removeCategory(book.id, category.id)" 
+                                        class="remove-category-button"
+                                    >
+                                        Remove
+                                    </button>
+                                </li>
+                            </ul>
+                        </td>
                     </tr>
                 </tbody>
             </table>
