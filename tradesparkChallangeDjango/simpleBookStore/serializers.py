@@ -19,8 +19,13 @@ class BookSerializer(serializers.ModelSerializer):
         model = Book
         fields = ['id', 'title', 'author', 'categories']
 
-    # Sobreescritura del método create() del serializer en DRF.
     def create(self, validated_data):
+        """
+        Sobreescritura del método create() del serializer en DRF para poder crear libros con objetos anidados 
+        (autores y categorías).
+        Verifica si el autor y las categorías dadas ya existen en la base de datos; si no existen, los crea.
+        """
+        
         author_data = validated_data.pop('author')
         categories_data = validated_data.pop('categories')
         
@@ -33,15 +38,20 @@ class BookSerializer(serializers.ModelSerializer):
         for category_data in categories_data:
             if not Category.objects.filter(**category_data).exists():
                 Category.objects.create(**category_data)
-                
             category = Category.objects.get(**category_data)
             book.categories.add(category)
             
         return book
 
-    # Sobreescritura del método update() del serializer en DRF para poder modificar libros con 
-    # objetos anidados (autores y categorías).
+
     def update(self, instance, validated_data):
+        """
+        Sobreescritura del método update() del serializer en DRF para poder modificar libros con 
+        objetos anidados (autores y categorías).
+        Para poderse modificar el autor y las categorías, deben coincidir todos los datos asociados
+        a estas entidades.
+        """
+        
         author_data = validated_data.pop('author', None)
         categories_data = validated_data.pop('categories', None)
 
