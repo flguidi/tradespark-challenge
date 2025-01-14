@@ -1,11 +1,11 @@
 <div class="background-image">
     <h1> Book Store </h1>
-    
+
     <!-- Barra de búsqueda -->
     <div class="search-bar-container">
         <app-search-bar (search)="onSearch($event)"></app-search-bar>
     </div>
-    
+
     <!-- Lista de libros -->
     <div class="book-list">
         <div>
@@ -22,16 +22,14 @@
                         <td [innerHTML]="book['title'] | highlight: searchText"></td>
                         <td [innerHTML]="book['author']['name'] | highlight: searchText"></td>
                         <td>
-                            <ul class="category-list">
-                                <li *ngFor="let category of book.categories">
-                                    <span [innerHTML]="category.name | highlight: searchText"></span>
-                                    <button 
-                                        (click)="removeCategory(book.id, category.id)" 
-                                        class="remove-category-button">
-                                        Remove
-                                    </button>
-                                </li>
-                            </ul>
+                            <div class="category-tags">
+                                <app-removable-tag *ngFor="let category of book.categories" 
+                                    [tagText]="category.name"
+                                    [searchText]="searchText"
+                                    (remove)="removeCategory(book.id, category.id)"
+                                >
+                                </app-removable-tag>
+                            </div>
                         </td>
                     </tr>
                 </tbody>
@@ -39,4 +37,3 @@
         </div>
     </div>
 </div>
-

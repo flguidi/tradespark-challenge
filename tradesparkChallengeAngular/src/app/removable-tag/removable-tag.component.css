@@ -1,0 +1,26 @@
+.tag {
+    padding: 8px 10px;
+    display: flex;
+
+    align-items: center;
+    border: 1px #ddd solid;
+    border-radius: 18px;
+    font-size: 14px;
+    color: #353535;
+    transition: background-color 0.3s ease, border 0.3 ease;
+}
+
+.remove-button {
+    width: 14px;
+    height: 14px;
+    margin-left: 6px;
+    padding: 0;
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+.remove-button img {
+    width: 60%;
+    height: 60%;
+}

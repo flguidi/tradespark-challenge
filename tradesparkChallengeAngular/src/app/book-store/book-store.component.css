@@ -54,17 +54,8 @@ h1 {
     background-color: #f5f5f5; /* Slightly darker background on row hover */
 }
 
-.book-list .category-list {
-    margin: 0;
-    padding: 0;
-}
-
-.book-list .category-list li {
-    margin: 6px 0;
-    list-style: none;
-}
-
-.book-list .remove-category-button {
-    margin: 0 0 0 5px;
-    padding: 4px 6px;
+.category-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
 }

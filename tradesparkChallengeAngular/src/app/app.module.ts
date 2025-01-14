@@ -10,6 +10,7 @@ import { MainPageComponent } from './main-page/main-page.component';
 import { SearchBarComponent } from './search-bar/search-bar.component';
 
 import { HighlightPipe } from './pipes/highlight.pipe';
+import { RemovableTagComponent } from './removable-tag/removable-tag.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { HighlightPipe } from './pipes/highlight.pipe';
     BookStoreComponent,
     MainPageComponent,
     SearchBarComponent,
-    HighlightPipe
+    HighlightPipe,
+    RemovableTagComponent
   ],
   imports: [
     BrowserModule,
