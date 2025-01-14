@@ -43,7 +43,6 @@ class BookSerializer(serializers.ModelSerializer):
             
         return book
 
-
     def update(self, instance, validated_data):
         """
         Sobreescritura del método update() del serializer en DRF para poder modificar libros con 

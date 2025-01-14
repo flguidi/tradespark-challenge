@@ -16,7 +16,7 @@ class BookViewSet(viewsets.ModelViewSet):
     queryset = Book.objects.all()
     serializer_class = BookSerializer
     
-    @action(detail=True, methods=['delete'], url_path='removeCategory/(?P<category_id>\d+)')
+    @action(detail=True, methods=['delete'], url_path='removeCategory/(?P<category_id>\d+)', url_name="remove_category")
     def remove_category(self, request, pk=None, category_id=None):
         """
         Elimina una categoría dado su ID de un libro específico (no elimina la categoría de la base de datos).
