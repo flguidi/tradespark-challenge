@@ -22,6 +22,16 @@ export class BookStoreService {
   }
 
   /**
+   * Elimina un libro dado su ID realizando una solicitud HTTP DELETE al backend.
+   * 
+   * @param bookId El ID del libro a eliminar.
+   * @returns Observable<any> - Un observable que emite la respuesta del servidor.
+   */
+  deleteBook(bookId: number): Observable<any> {
+    return this.client.delete(`${this.baseUrl}/${bookId}/`);
+  }
+
+  /**
    * Tercer punto del challenge:
    * 
    * Elimina la relación entre una categoría específica con un libro dado realizando una solicitud

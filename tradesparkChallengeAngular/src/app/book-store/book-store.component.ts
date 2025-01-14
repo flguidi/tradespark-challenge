@@ -34,23 +34,6 @@ export class BookStoreComponent implements OnInit {
   }
 
   /**
-   * Convierte una lista de categorías en un string separado por comas.
-   * 
-   * @param categories La lista de categorías asociadas a un libro.
-   * @returns Un string con los nombres de las categorías separados por comas.
-   */
-  categoriesToString(categories: any[]): string {
-    let categoriesString = "";
-    categories.forEach((category, index) => {
-      categoriesString += category.name;
-      if (index < categories.length - 1) {
-        categoriesString += ", ";
-      }
-    });
-    return categoriesString;
-  }
-
-  /**
    * Primer punto del challenge:
    * 
    * Método que maneja el filtrado de libros basado en el texto ingresado en la barra de búsqueda.
@@ -66,6 +49,39 @@ export class BookStoreComponent implements OnInit {
         book.author.name.toLowerCase().includes(this.searchText) || // Autor
         this.categoriesToString(book.categories).toLowerCase().includes(this.searchText) // Categorías
     );
+  }
+
+  // Método para eliminar un libro
+  deleteBook(bookId: number): void {
+    if (confirm('Are you sure you want to delete this book?')) {
+      this.bookStoreService.deleteBook(bookId).subscribe({
+        next: () => {
+          this.filteredBooks = this.filteredBooks.filter(book => book.id !== bookId);
+          alert('Book deleted successfully.');
+        },
+        error: (err) => {
+          console.error('Error deleting book:', err);
+          alert('Failed to delete the book. Please try again.');
+        }
+      });
+    }
+  }
+
+  /**
+   * Convierte una lista de categorías en un string separado por comas.
+   * 
+   * @param categories La lista de categorías asociadas a un libro.
+   * @returns Un string con los nombres de las categorías separados por comas.
+   */
+  categoriesToString(categories: any[]): string {
+    let categoriesString = "";
+    categories.forEach((category, index) => {
+      categoriesString += category.name;
+      if (index < categories.length - 1) {
+        categoriesString += ", ";
+      }
+    });
+    return categoriesString;
   }
 
   /**

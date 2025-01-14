@@ -1,26 +1,32 @@
 .tag {
-    padding: 8px 10px;
+    height: 34px;
+    padding: 0 10px;
     display: flex;
-
     align-items: center;
-    border: 1px #ddd solid;
+    border: 1px rgba(144, 144, 144, 0.8) solid;
     border-radius: 18px;
+    background-color: rgba(255, 0, 0, 0);
     font-size: 14px;
     color: #353535;
-    transition: background-color 0.3s ease, border 0.3 ease;
+    transition: background-color 0.3s ease, border 0.3s ease;
+    cursor: pointer;
 }
 
-.remove-button {
+.tag:hover {
+    border: 1px rgba(255, 0, 0, 0.5) solid;
+    background-color: rgba(255, 0, 0, 0.2);
+}
+
+.remove-icon-container {
     width: 14px;
     height: 14px;
     margin-left: 6px;
     padding: 0;
     background: none;
     border: none;
-    cursor: pointer;
 }
 
-.remove-button img {
+.remove-icon-container img {
     width: 60%;
     height: 60%;
 }

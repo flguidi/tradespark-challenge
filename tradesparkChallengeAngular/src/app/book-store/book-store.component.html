@@ -1,39 +1,42 @@
 <div class="background-image">
-    <h1> Book Store </h1>
+  <h1> Book Store </h1>
 
-    <!-- Barra de búsqueda -->
-    <div class="search-bar-container">
-        <app-search-bar (search)="onSearch($event)"></app-search-bar>
-    </div>
+  <!-- Barra de búsqueda -->
+  <div class="search-bar-container">
+    <app-search-bar (search)="onSearch($event)"></app-search-bar>
+  </div>
 
-    <!-- Lista de libros -->
-    <div class="book-list">
-        <div>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Book Title</th>
-                        <th>Author</th>
-                        <th>Category</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr *ngFor="let book of filteredBooks">
-                        <td [innerHTML]="book['title'] | highlight: searchText"></td>
-                        <td [innerHTML]="book['author']['name'] | highlight: searchText"></td>
-                        <td>
-                            <div class="category-tags">
-                                <app-removable-tag *ngFor="let category of book.categories" 
-                                    [tagText]="category.name"
-                                    [searchText]="searchText"
-                                    (remove)="removeCategory(book.id, category.id)"
-                                >
-                                </app-removable-tag>
-                            </div>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
+  <!-- Lista de libros -->
+  <div class="book-list">
+    <div>
+      <table>
+        <thead>
+          <tr>
+            <th></th>
+            <th>Book Title</th>
+            <th>Author</th>
+            <th>Category</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="button-column" *ngFor="let book of filteredBooks">
+            <td>
+              <button class="round-button" (click)="deleteBook(book.id)">
+                <img src="../../assets/delete_button_icon.png" alt="">
+              </button>
+            </td>
+            <td [innerHTML]="book['title'] | highlight: searchText"></td>
+            <td [innerHTML]="book['author']['name'] | highlight: searchText"></td>
+            <td>
+              <div class="category-tags">
+                <app-removable-tag *ngFor="let category of book.categories" [tagText]="category.name"
+                  [searchText]="searchText" (remove)="removeCategory(book.id, category.id)">
+                </app-removable-tag>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </div>
+  </div>
 </div>

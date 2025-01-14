@@ -1,6 +1,6 @@
-<div class="tag">
+<button class="tag" (click)="onRemove()">
     <span [innerHTML]="tagText | highlight: searchText"></span>
-    <button class="remove-button" (click)="onRemove()">
-        <img src="../../assets/close-button-icon.png" alt="Close button icon">
-    </button>
-</div>
+    <div class="remove-icon-container">
+        <img src="../../assets/close_button_icon.png" alt="Close button icon">
+    </div>
+</button>
