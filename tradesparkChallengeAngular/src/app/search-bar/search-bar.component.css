@@ -7,16 +7,43 @@
     width: 100%;
     padding: 10px 40px 10px 10px;
     box-sizing: border-box;
-    border: 1px solid #ccc;
-    border-radius: 4px;
+    border: 1px solid rgb(209, 209, 209);
+    border-radius: 8px;
     font-size: 16px;
+    background: rgba(255, 255, 255, 0.8); /* Mismo color que lista de libros */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Misma sombra */
+}
+
+.search-input:hover {
+    background-color: #f5f5f5; /* Mismo color que hover de filas en lista de libros */
+}
+
+.search-icon, .clear-button {
+    width: 15px;
+    height: 15px;
+    position: absolute;
+    top: 50%;
+    right: 6px;
+    transform: translate(-50%, -50%) scale(1);
 }
 
 .search-icon {
-    position: absolute;
-    top: 50%;
-    right: 10px;
-    transform: translateY(-50%);
-    width: 20px;
-    height: 20px;
+    pointer-events: none; /* Impedir arrastrar imagen */
+}
+
+.clear-button {
+    padding: 0;
+    border: none;
+    transform-origin: center;
+    transition: transform 0.2s ease;
+    cursor: pointer;
+}
+
+.clear-button:hover {
+    transform: translate(-50%, -50%) scale(1.2);
+}
+
+.clear-button img {
+    width: 100%;
+    height: 100%;
 }

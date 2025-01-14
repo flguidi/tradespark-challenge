@@ -28,4 +28,12 @@ export class SearchBarComponent implements OnInit {
     this.search.emit(this.searchText);
   }
 
+  /**
+   * Limpia el input de búsqueda y emite el cambio al componente padre (book-store).
+   */
+  clearSearch(): void {
+    this.searchText = '';
+    this.search.emit(this.searchText);
+  }
+
 }

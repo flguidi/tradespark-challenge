@@ -1,4 +1,5 @@
 <div class="search-container">
+    <!-- Input para realizar la búsqueda -->
     <input
         type="text"
         class="search-input"
@@ -6,5 +7,20 @@
         (ngModelChange)="onInputChange()"
         placeholder="Search by title, author or category..."
     />
-    <img class="search-icon" src="../../assets/search_bar_icon.png" alt="Search Bar Icon">
+    <!-- Imagen de lupa que se muestra cuando el input está vacío -->
+    <img
+        *ngIf="!searchText"
+        class="search-icon"
+        src="../../assets/search_bar_icon.png"
+        alt="Search Bar Icon"
+    />
+    <!-- Si hay texto en el input, se muestra un botón de cruz para borrar el texto -->
+    <button
+        *ngIf="searchText"
+        class="clear-button"
+        (click)="clearSearch()"
+        aria-label="Clear Search"
+    >
+        <img src="../../assets/close-button-icon.png" alt="Close button icon">
+    </button>
 </div>
