@@ -51,7 +51,13 @@ export class BookStoreComponent implements OnInit {
     );
   }
 
-  // Método para eliminar un libro
+  /**
+   * Elimina un libro con el ID dado. 
+   * Antes de la eliminación, pregunta al usuario si está seguro de realizar la operación.
+   * Luego de intentar eliminar el libro, informa al usuario si la operación se pudo concretar.
+   * 
+   * @param bookId ID del libro a eliminar.
+   */
   deleteBook(bookId: number): void {
     if (confirm('Are you sure you want to delete this book?')) {
       this.bookStoreService.deleteBook(bookId).subscribe({
