@@ -1,14 +1,12 @@
-# TradeSpark Challange
-## Consignas del Challenge:
-- [TradeSpark Challange](#tradespark-challange)
-  - [Consignas del Challenge:](#consignas-del-challenge)
-  - [Primer punto (Angular, Front-side)](#primer-punto-angular-front-side)
-  - [Segundo punto (Django, Back-side)](#segundo-punto-django-back-side)
-  - [Tercer punto](#tercer-punto)
-  - [Extras](#extras)
-    - [Operaciones CRUD](#operaciones-crud)
-    - [Pruebas unitarias](#pruebas-unitarias)
-    - [Colección Postman](#colección-postman)
+# TradeSpark Challenge
+## Consignas:
+- [Primer punto (Angular, Front-side)](#primer-punto-angular-front-side)
+- [Segundo punto (Django, Back-side)](#segundo-punto-django-back-side)
+- [Tercer punto](#tercer-punto)
+- [Extras](#extras)
+  - [Operaciones CRUD](#operaciones-crud)
+  - [Pruebas unitarias](#pruebas-unitarias)
+  - [Colección Postman](#colección-postman)
 
 ---
 
