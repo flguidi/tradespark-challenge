@@ -409,6 +409,38 @@
 					"response": []
 				},
 				{
+					"name": "Add category to book",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Added category\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/bookStore/books/4/addCategory/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"bookStore",
+								"books",
+								"4",
+								"addCategory",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "Remove category from book",
 					"request": {
 						"method": "DELETE",
