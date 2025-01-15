@@ -36,7 +36,7 @@
               <!-- Categorías -->
               <div class="category-tags">
                 <app-removable-tag *ngFor="let category of book.categories" [tagText]="category.name"
-                  [searchText]="searchText" (remove)="removeCategory(book.id, category.id)">
+                  [searchText]="searchText" (remove)="removeCategory(book.title, category.name)">
                 </app-removable-tag>
 
                 <!-- Agregar categoría -->

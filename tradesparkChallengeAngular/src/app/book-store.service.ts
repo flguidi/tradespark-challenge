@@ -64,17 +64,22 @@ export class BookStoreService {
   }
 
   /**
-   * Tercer punto del challenge:
+   * Tercer punto del Challenge:
    * 
-   * Elimina la relación entre una categoría específica con un libro dado realizando una solicitud
-   * HTTP DELETE al backend.
+   * Dado el título de un libro y el nombre de una categoría elimina la relación entre ambos
+   * realizando una solicitud HTTP DELETE al backend. 
    * 
-   * @param bookId ID del libro del que se desea eliminar la categoría.
-   * @param categoryId ID de la categoría que se desea eliminar del libro.
+   * @param bookTitle Título del libro del que se desea eliminar la categoría.
+   * @param categoryName Nombre de la categoría que se desea eliminar del libro.
    * @returns Observable<any> - Un observable que emite la respuesta del servidor.
    */
-  removeCategory(bookId: number, categoryId: number): Observable<any> {
-    return this.client.delete(`${this.baseUrl}/${bookId}/removeCategory/${categoryId}/`);
+  removeCategoryFromBook(bookTitle: string, categoryName: string): Observable<any> {
+    const url = `${this.baseUrl}/removeCategory/`;
+    const body = { book_title: bookTitle, category_name: categoryName }; // Cuerpo del mensaje
+    return this.client.request('delete', url, { 
+      headers: { 'Content-Type': 'application/json' },
+      body: body 
+    });
   }
 
 }

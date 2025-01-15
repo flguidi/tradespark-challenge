@@ -135,7 +135,6 @@ export class BookStoreComponent implements OnInit {
       this.bookStoreService.deleteBook(bookId).subscribe({
         next: () => {
           this.filteredBooks = this.filteredBooks.filter(book => book.id !== bookId);
-          alert('Book deleted successfully.');
         },
         error: (err) => {
           console.error('Error deleting book:', err);
@@ -177,11 +176,11 @@ export class BookStoreComponent implements OnInit {
    * Método que llama al servicio `BookStoreService` para eliminar una categoría de un libro específico.
    * Una vez eliminada la categoría, recarga los libros para mostrar los cambios.
    * 
-   * @param bookId El ID del libro al que pertenece la categoría.
-   * @param categoryId El ID de la categoría que se desea eliminar.
+   * @param bookTitle El título del libro al que pertenece la categoría.
+   * @param categoryName El ID de la categoría que se desea eliminar.
    */
-  removeCategory(bookId: number, categoryId: number): void {
-    this.bookStoreService.removeCategory(bookId, categoryId).subscribe(
+  removeCategory(bookTitle: string, categoryName: string): void {
+    this.bookStoreService.removeCategoryFromBook(bookTitle, categoryName).subscribe(
       () => {
         this.loadBooks(); // Recargar libros para actualizar la vista
       },

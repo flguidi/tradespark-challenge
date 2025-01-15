@@ -445,8 +445,17 @@
 					"request": {
 						"method": "DELETE",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"book_title\": \"New book\",\r\n    \"category_name\": \"New category\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
-							"raw": "http://localhost:8000/bookStore/books/4/removeCategory/5/",
+							"raw": "http://localhost:8000/bookStore/books/removeCategory/",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -455,9 +464,7 @@
 							"path": [
 								"bookStore",
 								"books",
-								"4",
 								"removeCategory",
-								"5",
 								""
 							]
 						}

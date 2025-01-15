@@ -9,14 +9,14 @@ class Author(models.Model):
         return self.name
 
 class Category(models.Model):
-    name = models.CharField(max_length=100)
+    name = models.CharField(max_length=100, unique=True) # Se convierte UNIQUE para mayor consistencia con el método de eliminar categorías
     description = models.TextField(blank=True, null=True)
 
     def __str__(self):
         return self.name
 
 class Book(models.Model):
-    title = models.CharField(max_length=200)
+    title = models.CharField(max_length=200, unique=True) # Se convierte UNIQUE para mayor consistencia con el método de eliminar categorías
     author = models.ForeignKey(Author, on_delete=models.CASCADE)
     categories = models.ManyToManyField(Category)
     publication_date = models.DateField(blank=True, null=True)

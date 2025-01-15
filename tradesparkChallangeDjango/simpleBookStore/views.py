@@ -38,28 +38,40 @@ class BookViewSet(viewsets.ModelViewSet):
         return Response({"detail": "Category added successfully."}, status=status.HTTP_200_OK)
     
     
-    @action(detail=True, methods=['delete'], url_path='removeCategory/(?P<category_id>\d+)', url_name="remove_category")
-    def remove_category(self, request, pk=None, category_id=None):
+    @action(detail=False, methods=['delete'], url_path='removeCategory', url_name="remove_category")
+    def remove_category(self, request):
         """
-        Elimina una categoría dado su ID de un libro específico (no elimina la categoría de la base de datos).
-        Endpoint: DELETE /books/<book_id>/removeCategory/<category_id>/        
+        Tercer punto del Challenge:
+        
+        Elimina una categoría dado su nombre y el título de un libro específico.
+        Endpoint: DELETE /books/removeCategoryByName
+        Body JSON: {"book_title": "Book Title", "category_name": "Category Name"}
         """
-        
-        book = self.get_object()  # Obtener el libro con el ID dado en la URL
-        
-        # Intentar obtener la categoría utilizando el category_id proporcionado en la URL.
-        # Si la categoría no existe, devolver un error 404.
-        try:
-            category = Category.objects.get(id=category_id)
-        except Category.DoesNotExist:
-            return Response({"detail": "Category not found."}, status=status.HTTP_404_NOT_FOUND)
+        book_title = request.data.get("book_title")
+        category_name = request.data.get("category_name")
 
-        # Verificar si la categoría está asociada con el libro. Si no lo está, devolver un error 400.
+        # Verificar si se proporcionaron ambos parámetros en el cuerpo de la solicitud
+        if not book_title or not category_name:
+            return Response({"detail": "Both book title and category name are required."}, status=status.HTTP_400_BAD_REQUEST)
+
+        # Intentar obtener el libro utilizando el título proporcionado
+        try:
+            book = Book.objects.get(title=book_title)
+        except Book.DoesNotExist:
+            return Response({"detail": f"Book with title '{book_title}' not found."}, status=status.HTTP_404_NOT_FOUND)
+
+        # Intentar obtener la categoría utilizando el nombre proporcionado
+        try:
+            category = Category.objects.get(name=category_name)
+        except Category.DoesNotExist:
+            return Response({"detail": f"Category with name '{category_name}' not found."}, status=status.HTTP_404_NOT_FOUND)
+
+        # Verificar si la categoría está asociada con el libro
         if category not in book.categories.all():
-            return Response({"detail": "This category is not associated with the book."}, status=status.HTTP_400_BAD_REQUEST)
+            return Response({"detail": f"The category '{category_name}' is not associated with the book '{book_title}'."}, status=status.HTTP_400_BAD_REQUEST)
 
         # Eliminar la relación entre el libro y la categoría
         book.categories.remove(category)
 
-        # Respuesta exitosa con código de estado 204 (No Content).
-        return Response({"detail": "Category removed from book successfully."}, status=status.HTTP_204_NO_CONTENT)
+        # Respuesta exitosa
+        return Response({"detail": f"Category '{category_name}' removed from book '{book_title}' successfully."}, status=status.HTTP_204_NO_CONTENT)
