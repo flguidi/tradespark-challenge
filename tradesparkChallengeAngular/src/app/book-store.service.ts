@@ -22,6 +22,18 @@ export class BookStoreService {
   }
 
   /**
+   * Crea un libro realizando una solicitud HTTP POST al backend.
+   * 
+   * @param book Objeto que contiene la información del libro a crear (título, autor y categorías).
+   * @returns Observable<any> - Un observable que emite la respuesta del servidor.
+   */
+  addBook(book: any): Observable<any> {
+    return this.client.post(`${this.baseUrl}/`, book, {
+      headers: { 'Content-Type': 'application/json' }
+    });
+  }
+
+  /**
    * Elimina un libro dado su ID realizando una solicitud HTTP DELETE al backend.
    * 
    * @param bookId El ID del libro a eliminar.

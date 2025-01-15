@@ -11,6 +11,7 @@ export class BookStoreComponent implements OnInit {
   books: any[] = []; // Almacena todos libros de la base de datos
   filteredBooks: any[] = []; // Libros filtrados que se renderizarán
   searchText: string = ''; // Texto de la búsqueda utilizado para resaltar coincidencias
+  isCreateFormVisible: boolean = false; // Indica si se debe mostrar el formulario de creación de libros
 
   constructor(private bookStoreService: BookStoreService) { }
 
@@ -18,11 +19,37 @@ export class BookStoreComponent implements OnInit {
     this.loadBooks(); // Cargar los libros al inicializar el componente
   }
 
+  openForm() {
+    this.isCreateFormVisible = true;
+  }
+
+  closeForm() {
+    this.isCreateFormVisible = false;
+  }
+
+  /**
+   * Agrega un nuevo libro utilizando el servicio `BookStoreService`.
+   * 
+   * @param book Objeto que contiene la información del libro a crear (título, autor y categorías).
+   */
+  addBook(book: any) {
+    // Llamar al servicio para crear un nuevo libro
+    this.bookStoreService.addBook(book).subscribe({
+      next: () => {
+        this.loadBooks(); // Actualizar la lista de libros
+        this.closeForm(); // Se cierra el formulario
+      },
+      error: (err) => {
+        console.error('Error creating book: ', err);
+      },
+    });
+  }
+
   /**
    * Carga los libros desde el backend y los asigna a las listas de libros y libros filtrados.
    */
   loadBooks(): void {
-    this.bookStoreService.getBooks().subscribe( // Suscripción al Observable devuelto por getBooks()
+    this.bookStoreService.getBooks().subscribe(
       (data) => {
         this.books = data;
         this.filteredBooks = [...this.books]; // Inicializar libros filtrados con todos los libros
@@ -100,7 +127,7 @@ export class BookStoreComponent implements OnInit {
    * @param categoryId El ID de la categoría que se desea eliminar.
    */
   removeCategory(bookId: number, categoryId: number): void {
-    this.bookStoreService.removeCategory(bookId, categoryId).subscribe( // Suscripción al Observable devuelto por removeCategory()
+    this.bookStoreService.removeCategory(bookId, categoryId).subscribe(
       () => {
         this.loadBooks(); // Recargar libros para actualizar la vista
       },

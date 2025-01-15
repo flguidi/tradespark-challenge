@@ -11,6 +11,7 @@ import { SearchBarComponent } from './search-bar/search-bar.component';
 
 import { HighlightPipe } from './pipes/highlight.pipe';
 import { RemovableTagComponent } from './removable-tag/removable-tag.component';
+import { CreateBookFormComponent } from './create-book-form/create-book-form.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { RemovableTagComponent } from './removable-tag/removable-tag.component';
     MainPageComponent,
     SearchBarComponent,
     HighlightPipe,
-    RemovableTagComponent
+    RemovableTagComponent,
+    CreateBookFormComponent
   ],
   imports: [
     BrowserModule,
