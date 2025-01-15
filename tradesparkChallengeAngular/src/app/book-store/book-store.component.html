@@ -22,31 +22,29 @@
           <tr class="button-column" *ngFor="let book of filteredBooks">
             <td>
               <!-- Eliminar libro -->
-              <button class="round-button" (click)="deleteBook(book.id)">
+              <button class="round-button delete-book-button" (click)="deleteBook(book.id)">
                 <img src="../../assets/delete_button_icon.png" alt="">
               </button>
             </td>
             <td [innerHTML]="book['title'] | highlight: searchText"></td>
             <td [innerHTML]="book['author']['name'] | highlight: searchText"></td>
             <td>
+              <!-- Categorías -->
               <div class="category-tags">
                 <app-removable-tag *ngFor="let category of book.categories" [tagText]="category.name"
                   [searchText]="searchText" (remove)="removeCategory(book.id, category.id)">
                 </app-removable-tag>
+
+                <!-- Agregar categoría -->
+                <button class="round-button add-category-button" (click)="addCategory(book.id)">+</button>
               </div>
             </td>
           </tr>
         </tbody>
       </table>
-      
     </div>
   </div>
 
   <!-- Agregar libro -->
-  <button class="create-book-btn" (click)="openForm()">+</button>
-  <app-create-book-form
-    [isVisible]="isCreateFormVisible"
-    (close)="closeForm()"
-    (createBook)="addBook($event)">
-  </app-create-book-form>
+  <button class="create-book-btn" (click)="addBook()">+</button>
 </div>

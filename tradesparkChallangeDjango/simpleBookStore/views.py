@@ -16,11 +16,33 @@ class BookViewSet(viewsets.ModelViewSet):
     queryset = Book.objects.all()
     serializer_class = BookSerializer
     
+    @action(detail=True, methods=['post'], url_path='addCategory', url_name='add_category')
+    def add_category(self, request, pk=None):
+        """
+        Agrega una categoría a un libro específico.
+        Endpoint: POST /books/<book_id>/addCategory/
+        """
+        book = self.get_object()
+        category_name = request.data.get('name')
+
+        # Validar que se proporcionó el category_id
+        if not category_name:
+            return Response({"detail": "Category name is required."}, status=status.HTTP_400_BAD_REQUEST)
+
+        # Verificar si la categoría existe; si no, crearla
+        category, created = Category.objects.get_or_create(name=category_name)
+
+        # Agregar la categoría al libro
+        book.categories.add(category)
+
+        return Response({"detail": "Category added successfully."}, status=status.HTTP_200_OK)
+    
+    
     @action(detail=True, methods=['delete'], url_path='removeCategory/(?P<category_id>\d+)', url_name="remove_category")
     def remove_category(self, request, pk=None, category_id=None):
         """
         Elimina una categoría dado su ID de un libro específico (no elimina la categoría de la base de datos).
-        Endpoint: DELETE /books/<book_id>/remove_category/<category_id>/        
+        Endpoint: DELETE /books/<book_id>/removeCategory/<category_id>/        
         """
         
         book = self.get_object()  # Obtener el libro con el ID dado en la URL

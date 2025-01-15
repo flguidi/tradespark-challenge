@@ -8,7 +8,7 @@ import { Observable } from 'rxjs'; // Observable para manejar datos asíncronos 
 export class BookStoreService {
 
   // URL base para realizar operaciones con el recurso 'books'
-  private baseUrl : string = 'http://localhost:8000/bookStore/books';
+  private baseUrl: string = 'http://localhost:8000/bookStore/books';
 
   constructor(private client: HttpClient) { }
 
@@ -41,6 +41,19 @@ export class BookStoreService {
    */
   deleteBook(bookId: number): Observable<any> {
     return this.client.delete(`${this.baseUrl}/${bookId}/`);
+  }
+
+  /**
+   * Agrega una categoría a un libro dado.
+   * 
+   * @param bookId ID del libro al cual se le agregará la categoría.
+   * @param category Categoría que se agregará.
+   * @returns Observable<any> - Un observable que emite la respuesta del servidor.
+   */
+  addCategory(bookId: number, category: { name: string }): Observable<any> {
+    return this.client.post(`${this.baseUrl}/${bookId}/addCategory/`, category, {
+      headers: { 'Content-Type': 'application/json' }
+    });
   }
 
   /**

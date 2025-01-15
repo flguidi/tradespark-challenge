@@ -8,10 +8,9 @@ import { AppComponent } from './app.component';
 import { BookStoreComponent } from './book-store/book-store.component';
 import { MainPageComponent } from './main-page/main-page.component';
 import { SearchBarComponent } from './search-bar/search-bar.component';
+import { RemovableTagComponent } from './removable-tag/removable-tag.component';
 
 import { HighlightPipe } from './pipes/highlight.pipe';
-import { RemovableTagComponent } from './removable-tag/removable-tag.component';
-import { CreateBookFormComponent } from './create-book-form/create-book-form.component';
 
 @NgModule({
   declarations: [
@@ -19,9 +18,8 @@ import { CreateBookFormComponent } from './create-book-form/create-book-form.com
     BookStoreComponent,
     MainPageComponent,
     SearchBarComponent,
-    HighlightPipe,
     RemovableTagComponent,
-    CreateBookFormComponent
+    HighlightPipe
   ],
   imports: [
     BrowserModule,
