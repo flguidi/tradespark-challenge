@@ -5,8 +5,8 @@
     color: #333; /* Dark text for contrast */
     font-family: 'Arial', sans-serif;
     background-position: center;
-    height: 100vh;
-    width: 100%;
+    height: calc(100vh - 56px);
+    width: calc(100% - 40px);
 }
 
 h1 {
@@ -32,6 +32,7 @@ h1 {
 .book-list table {
     width: 100%;
     border-collapse: collapse; /* Ensures that the borders collapse into a single border */
+    table-layout: fixed;
 }
 
 .book-list th, .book-list td {
@@ -39,9 +40,11 @@ h1 {
     padding: 8px;
     border-bottom: 1px solid #ddd; /* Horizontal line for each row */
     border-right: 1px solid #ddd; /* Vertical line between cells */
+    word-wrap: break-word; /* Asegura que el contenido largo no desborde */
 }
 
 .book-list th {
+    width: 80px;
     background-color: #f4f4f4; /* Light gray background for headers */
     color: #333; /* Dark text for headers */
 }
@@ -54,8 +57,12 @@ h1 {
     background-color: #f5f5f5; /* Slightly darker background on row hover */
 }
 
-.book-list .button-column {
-    width: 80px;
+.book-list th:nth-child(1) {
+    width: 80px; /* Columna 1 */
+}
+
+.book-list th:nth-child(n+2), .book-list td:nth-child(n+2) {
+    width: calc((100% - 150px) / 3); /* Columnas 2-3-4 */
 }
 
 .book-list .round-button {
@@ -69,24 +76,28 @@ h1 {
     transition: background-color 0.2s ease, border 0.2s ease;
 }
 
-.book-list .add-category-button {
-    padding: 0;
-    font-size: 23px;    
-}
-
-.book-list .add-category-button:hover {
+.book-list .round-button:hover {
     border: 1px rgba(100, 100, 100, 0.8) solid;
     background-color: rgba(0, 0, 0, 0.3);
-}
-
-.book-list .delete-book-button:hover {
-    border: 1px rgba(255, 0, 0, 0.5) solid;
-    background-color: rgba(255, 0, 0, 0.2);
 }
 
 .book-list .round-button img {
     width: 80%;
     height: 80%;
+}
+
+.book-list .round-button.add-category-button {
+    padding: 0;
+    font-size: 23px;    
+}
+
+.book-list .round-button.delete-book-button {
+    margin-right: 10px;
+}
+
+.book-list .round-button.delete-book-button:hover {
+    border: 1px rgba(255, 0, 0, 0.5) solid;
+    background-color: rgba(255, 0, 0, 0.2);
 }
 
 .book-list .category-tags {

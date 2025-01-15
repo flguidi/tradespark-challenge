@@ -28,9 +28,18 @@ export class BookStoreService {
    * @returns Observable<any> - Un observable que emite la respuesta del servidor.
    */
   addBook(book: any): Observable<any> {
-    return this.client.post(`${this.baseUrl}/`, book, {
-      headers: { 'Content-Type': 'application/json' }
-    });
+    return this.client.post(`${this.baseUrl}/`, book);
+  }
+
+  /**
+   * Actualiza un libro realizando una solicitud HTTP PUT al backend.
+   * 
+   * @param bookId ID del libro que se desea actualizar.
+   * @param book Objeto que contiene la información actualizada del libro (título, autor y categorías).
+   * @returns Observable<any> - Un observable que emite la respuesta del servidor.
+   */
+  updateBook(bookId: number, book: any): Observable<any> {
+    return this.client.put(`${this.baseUrl}/${bookId}/`, book);
   }
 
   /**
@@ -51,9 +60,7 @@ export class BookStoreService {
    * @returns Observable<any> - Un observable que emite la respuesta del servidor.
    */
   addCategory(bookId: number, category: { name: string }): Observable<any> {
-    return this.client.post(`${this.baseUrl}/${bookId}/addCategory/`, category, {
-      headers: { 'Content-Type': 'application/json' }
-    });
+    return this.client.post(`${this.baseUrl}/${bookId}/addCategory/`, category);
   }
 
   /**

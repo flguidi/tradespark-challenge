@@ -19,11 +19,15 @@
           </tr>
         </thead>
         <tbody>
-          <tr class="button-column" *ngFor="let book of filteredBooks">
-            <td>
+          <tr *ngFor="let book of filteredBooks">
+            <td class="button-cell">
               <!-- Eliminar libro -->
               <button class="round-button delete-book-button" (click)="deleteBook(book.id)">
-                <img src="../../assets/delete_button_icon.png" alt="">
+                <img src="../../assets/delete_button_icon.png" alt="Delete Book Icon">
+              </button>
+              <!-- Editar libro -->
+              <button class="round-button" (click)="updateBook(book.id)">
+                <img src="../../assets/edit_button_icon.png" alt="Update Book Icon">
               </button>
             </td>
             <td [innerHTML]="book['title'] | highlight: searchText"></td>

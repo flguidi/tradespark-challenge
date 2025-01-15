@@ -6,10 +6,12 @@ class AuthorSerializer(serializers.ModelSerializer):
         model = Author
         fields = '__all__'
 
+
 class CategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = Category
         fields = '__all__'
+
 
 class BookSerializer(serializers.ModelSerializer):
     author = AuthorSerializer()
@@ -45,40 +47,29 @@ class BookSerializer(serializers.ModelSerializer):
 
     def update(self, instance, validated_data):
         """
-        Sobreescritura del método update() del serializer en DRF para poder modificar libros con 
-        objetos anidados (autores y categorías).
-        Para poderse modificar el autor y las categorías, deben coincidir todos los datos asociados
-        a estas entidades.
+        Sobreescritura del método update() del serializer en DRF para poder modificar libros con objetos anidados 
+        (autores y categorías).
+        Verifica si el autor y las categorías dadas ya existen en la base de datos; si no existen, los crea.
         """
         
         author_data = validated_data.pop('author', None)
         categories_data = validated_data.pop('categories', None)
 
-        # Validar que el autor exista
+        # Crear o actualizar el autor
         if author_data:
-            try:
-                author = Author.objects.get(**author_data)
-            except Author.DoesNotExist:
-                raise serializers.ValidationError(f"Author '{author_data.get('name')}' not found.")
+            author, _ = Author.objects.get_or_create(name=author_data.get('name'), defaults=author_data)
+            instance.author = author  # Asignar el autor al libro
         
-        # Validar que todas las categorías existan
-        if categories_data:
-            for category_data in categories_data:
-                if not Category.objects.filter(**category_data).exists():
-                    raise serializers.ValidationError(f"Category '{category_data.get('name')}' not found.")
-        
-        # Actualizar los campos si las validaciones son exitosas
-        if 'title' in validated_data:
-            instance.title = validated_data['title']
-
-        if author_data:
-            instance.author = author  # Asignar el nuevo autor
-
+        # Crear o actualizar las categorías
         if categories_data:
             instance.categories.clear()  # Limpiar las categorías actuales
             for category_data in categories_data:
-                category = Category.objects.get(**category_data)
-                instance.categories.add(category)  # Asignar las nuevas categorías
+                category, _ = Category.objects.get_or_create(name=category_data.get('name'), defaults=category_data)
+                instance.categories.add(category)  # Asignar la categoría al libro
+        
+        # Actualizar los campos restantes del libro
+        for attr, value in validated_data.items():
+            setattr(instance, attr, value)
 
         # Guardar los cambios en la instancia y retornarla
         instance.save()

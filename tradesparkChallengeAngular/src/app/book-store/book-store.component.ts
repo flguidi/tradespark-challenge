@@ -37,7 +37,8 @@ export class BookStoreComponent implements OnInit {
   }
 
   /**
-   * Carga los libros desde el backend y los asigna a las listas de libros y libros filtrados.
+   * Carga los libros desde el backend (a través del servicio) y los asigna a las listas de libros 
+   * y libros filtrados.
    */
   loadBooks(): void {
     this.bookStoreService.getBooks().subscribe(
@@ -53,8 +54,9 @@ export class BookStoreComponent implements OnInit {
 
   /**
    * Agrega un nuevo libro utilizando el servicio `BookStoreService`.
+   * Se pide al usuario que ingrese el nuevo título y el nuevo nombre de autor.
    * 
-   * @param book Objeto que contiene la información del libro a crear (título, autor y categorías).
+   * @param book Objeto que contiene la información del libro a crear (título y autor).
    */
   addBook(): void {
     const title = prompt('Enter the book title:');
@@ -72,7 +74,7 @@ export class BookStoreComponent implements OnInit {
     const newBook = {
       title: title,
       author: { name: authorName },
-      categories: []
+      categories: [] // Lista de categorías vacía para respetar el formato requerido por el backend
     };
 
     // Llamar al servicio para crear un nuevo libro
@@ -87,9 +89,44 @@ export class BookStoreComponent implements OnInit {
   }
 
   /**
+   * Modifica el título y autor del libro con el ID especificado.
+   * 
+   * @param bookId ID del libro modificado.
+   */
+  updateBook(bookId: number): void {
+    const newTitle = prompt('Enter the book title:');
+    if (!newTitle) {
+      alert('Book title is required.');
+      return;
+    }
+
+    const newAuthorName = prompt('Enter the author name:');
+    if (!newAuthorName) {
+      alert('Author name is required.');
+      return;
+    }
+
+    const updatedBook = {
+      title: newTitle,
+      author: { name: newAuthorName },
+      categories: [] // Lista de categorías vacía para respetar el formato requerido por el backend
+    };
+
+    // Llamar al servicio para modificar el libro
+    this.bookStoreService.updateBook(bookId, updatedBook).subscribe({
+      next: () => {
+        this.loadBooks(); // Actualizar la lista de libros
+      },
+      error: (err) => {
+        console.error('Error updating book: ', err);
+      },
+    });
+  }
+
+  /**
    * Elimina un libro con el ID dado. 
    * Antes de la eliminación, pregunta al usuario si está seguro de realizar la operación.
-   * Luego de intentar eliminar el libro, informa al usuario si la operación se pudo concretar.
+   * Luego de intentar eliminar el libro, informa al usuario el resultado de la operación.
    * 
    * @param bookId ID del libro a eliminar.
    */
